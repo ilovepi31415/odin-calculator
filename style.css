@@ -9,3 +9,39 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: gray;
+    padding: 16px;
+}
+
+.screen {
+    background-color: #eee;
+    font-size: 32px;
+    text-align: end;
+    padding: 8px;
+}
+
+.row {
+    display: flex;
+    gap: 8px;
+}
+
+button {
+    background-color: white;
+    height: 64px;
+    width: 64px;
+    border: none;
+    border-radius: 8px;
+}
+
+button.stretch {
+    flex: 1 0;
+}
+
+.row:nth-child(2) > button, button:last-child{
+    background-color: orange;
+}
