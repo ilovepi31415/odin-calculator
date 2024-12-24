@@ -11,39 +11,18 @@ const btn6 = document.querySelector('#btn6');
 const btn7 = document.querySelector('#btn7');
 const btn8 = document.querySelector('#btn8');
 const btn9 = document.querySelector('#btn9');
+const btnAdd = document.querySelector('#add');
+const btnSub = document.querySelector('#subtract');
+const btnMult = document.querySelector('#multiply');
+const btnDiv = document.querySelector('#divide');
 
 btnClear.addEventListener('click', () => {clear()});
 
-
-btn0.addEventListener('click', () => {
-    addToScreen('0');
-});
-btn1.addEventListener('click', () => {
-    addToScreen('1');
-});
-btn2.addEventListener('click', () => {
-    addToScreen('2');
-});
-btn3.addEventListener('click', () => {
-    addToScreen('3');
-});
-btn4.addEventListener('click', () => {
-    addToScreen('4');
-});
-btn5.addEventListener('click', () => {
-    addToScreen('5');
-});
-btn6.addEventListener('click', () => {
-    addToScreen('6');
-});
-btn7.addEventListener('click', () => {
-    addToScreen('7');
-});
-btn8.addEventListener('click', () => {
-    addToScreen('8');
-});
-btn9.addEventListener('click', () => {
-    addToScreen('9');
+const numbers = [btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9];
+numbers.forEach(btn => {
+    btn.addEventListener('click', () => {
+        addToScreen(btn.textContent);
+    });
 });
 
 function clear() {
