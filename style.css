@@ -1,6 +1,10 @@
 body {
     margin: 0;
     height: 100vh;
+    background-color: #2345ff;
+    background-image: radial-gradient(#ffffff22 10%, transparent 12%);
+    background-position: 0% 0%;
+    background-size: 5vmin 5vmin;
 }
 
 .container {
@@ -45,4 +49,9 @@ button.stretch {
 
 .row:nth-child(2) > button, button:last-child{
     background-color: orange;
+}
+
+button:last-child.active {
+    background-color: blue;
+    color: white;
 }
