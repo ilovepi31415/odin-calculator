@@ -47,7 +47,12 @@ evalButtons.forEach(btn => {
 
 function clear() {
     cleared = true;
+    screenStored = false;
+    ans = null;
     display.textContent= '0';
+    operands.forEach(btn => {
+        btn.classList.remove('active');
+    });
 }
 
 function addToScreen(n) {
@@ -81,6 +86,10 @@ function operate(op) {
 }
 
 function evaluate() {
+    if (ans == null) {
+        return;
+    }
+
     let res;
     number1 = parseFloat(ans);
     number2 = parseFloat(display.textContent);
@@ -105,11 +114,11 @@ function evaluate() {
             break;
     }
 
-    if (res >= 1000000000000000) {
+    if (res >= 10000000000000000) {
         display.textContent = 'ERR';
     }
     else {
-        display.textContent = res;
+        display.textContent = res.toString().slice(0, 16);
     }
 }
 
