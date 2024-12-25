@@ -15,6 +15,8 @@ const btnAdd = document.querySelector('#add');
 const btnSub = document.querySelector('#subtract');
 const btnMult = document.querySelector('#multiply');
 const btnDiv = document.querySelector('#divide');
+const btnNegative = document.querySelector('#negative');
+const btnPercent = document.querySelector('#percent');
 const evalButtons = document.querySelectorAll('.eval');
 
 // Flags
@@ -43,7 +45,11 @@ evalButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         evaluate();
     });
-})
+});
+
+btnNegative.addEventListener('click', () => {
+    display.textContent = (parseFloat(display.textContent) * -1).toString();
+});
 
 function clear() {
     cleared = true;
