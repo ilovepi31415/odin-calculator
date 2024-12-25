@@ -15,6 +15,7 @@ const btnAdd = document.querySelector('#add');
 const btnSub = document.querySelector('#subtract');
 const btnMult = document.querySelector('#multiply');
 const btnDiv = document.querySelector('#divide');
+const evalButtons = document.querySelectorAll('.eval');
 
 // Flags
 let cleared = true;
@@ -38,19 +39,25 @@ operands.forEach(btn => {
     });
 });
 
+evalButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        evaluate();
+    });
+})
+
 function clear() {
     cleared = true;
     display.textContent= '0';
 }
 
 function addToScreen(n) {
-    if (display.textContent.length > 15) {
-        return;
-    }
     cleared = false;
     if (display.textContent == '0' || screenStored) {
         display.textContent = n;
         screenStored = false;
+        return;
+    }
+    if (display.textContent.length > 15) {
         return;
     }
     display.textContent += n;
@@ -74,7 +81,36 @@ function operate(op) {
 }
 
 function evaluate() {
-    return;
+    let res;
+    number1 = parseFloat(ans);
+    number2 = parseFloat(display.textContent);
+    
+    if (isNaN(number2)) {
+        clear();
+        return;
+    }
+
+    switch(activeOperand) {
+        case '+':
+            res = number1 + number2;
+            break;
+        case '-':
+            res = number1 - number2;
+            break;
+        case '*':
+            res = number1 * number2;
+            break;
+        case '/':
+            res = number1 / number2;
+            break;
+    }
+
+    if (res >= 1000000000000000) {
+        display.textContent = 'ERR';
+    }
+    else {
+        display.textContent = res;
+    }
 }
 
 clear();
