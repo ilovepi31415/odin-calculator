@@ -52,7 +52,9 @@ evalButtons.forEach(btn => {
 });
 
 btnNegative.addEventListener('click', () => {
-    display.textContent = (parseFloat(display.textContent) * -1).toString();
+    if (equationInProgress) {
+        display.textContent = (parseFloat(display.textContent) * -1).toString();
+    }
 });
 
 btnPercent.addEventListener('click', () => {
@@ -73,6 +75,7 @@ function addToScreen(n) {
         display.textContent = n;
         resetScreen = false;
         if (!equationInProgress) {resetButtons();}
+        equationInProgress = true;
         return;
     }
     if (display.textContent.length > 15) {
