@@ -21,8 +21,11 @@ const evalButtons = document.querySelectorAll('.eval');
 
 // Flags
 let cleared = true;
-let screenStored = false;
+let resetScreen = false;
 let activeOperand = null;
+let equationInProgress = false;
+
+let temp;
 
 btnClear.addEventListener('click', () => {clear()});
 
@@ -37,6 +40,7 @@ numbers.forEach(btn => {
 
 operands.forEach(btn => {
     btn.addEventListener('click', () => {
+        temp = null;
         operate(btn.textContent);
     });
 });
@@ -57,19 +61,18 @@ btnPercent.addEventListener('click', () => {
 
 function clear() {
     cleared = true;
-    screenStored = false;
+    resetScreen = false;
     ans = null;
     display.textContent= '0';
-    operands.forEach(btn => {
-        btn.classList.remove('active');
-    });
+    resetButtons();
 }
 
 function addToScreen(n) {
     cleared = false;
-    if (display.textContent == '0' || screenStored) {
+    if (display.textContent == '0' || resetScreen) {
         display.textContent = n;
-        screenStored = false;
+        resetScreen = false;
+        if (!equationInProgress) {resetButtons();}
         return;
     }
     if (display.textContent.length > 15) {
@@ -83,6 +86,7 @@ function operate(op) {
         return;
     }
     activeOperand = op;
+    equationInProgress = true;
     operands.forEach(btn => {
         if (btn.textContent == op) {
             btn.classList.add('active');
@@ -92,7 +96,7 @@ function operate(op) {
         }
     });
     ans = display.textContent;
-    screenStored = true;
+    resetScreen = true;
 }
 
 function evaluate() {
@@ -101,10 +105,15 @@ function evaluate() {
     }
 
     let res;
-    number1 = parseFloat(ans);
-    number2 = parseFloat(display.textContent);
+
+    number1 = temp ? parseFloat(display.textContent) : parseFloat(ans);
+    number2 = temp ? temp : parseFloat(display.textContent);
+
+    if (!temp) {
+        temp = number2;
+    }
     
-    if (isNaN(number2)) {
+    if (isNaN(parseFloat(display.textContent))) {
         clear();
         return;
     }
@@ -128,6 +137,8 @@ function evaluate() {
             break;
     }
 
+    resetScreen = true;
+    equationInProgress = false;
     if (res >= 10000000000000000) {
         display.textContent = 'ERR';
     }
@@ -138,6 +149,13 @@ function evaluate() {
 
 function checkSmall(x) {
     return Math.abs(x) < .000000000001 ? '0' : x;
+}
+
+function resetButtons() {
+    operands.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    activeOperand = null;
 }
 
 clear();
