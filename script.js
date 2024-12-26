@@ -146,12 +146,12 @@ function evaluate() {
         display.textContent = 'ERR';
     }
     else {
-        display.textContent = checkSmall(res.toString().slice(0, 16));
+        display.textContent = checkSmall(res).toString().slice(0, 16);
     }
 }
 
 function checkSmall(x) {
-    return Math.abs(x) < .000000000001 ? '0' : x;
+    return Math.abs(x) < .000000001 ? 0 : x;
 }
 
 function resetButtons() {
