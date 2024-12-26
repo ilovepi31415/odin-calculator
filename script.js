@@ -48,7 +48,11 @@ evalButtons.forEach(btn => {
 });
 
 btnNegative.addEventListener('click', () => {
-    display.textContent = (parseFloat(display.textContent) * -1).toString();
+    display.textContent = checkSmall(parseFloat(display.textContent) * -1).toString();
+});
+
+btnPercent.addEventListener('click', () => {
+    display.textContent = (parseFloat(display.textContent) / 100).toString().slice(0, 16);
 });
 
 function clear() {
@@ -116,7 +120,11 @@ function evaluate() {
             res = number1 * number2;
             break;
         case '/':
-            res = number1 / number2;
+            if (number2 != 0) {
+                res = number1 / number2;
+                break;
+            }
+            res = 'ERR';
             break;
     }
 
@@ -124,8 +132,12 @@ function evaluate() {
         display.textContent = 'ERR';
     }
     else {
-        display.textContent = res.toString().slice(0, 16);
+        display.textContent = checkSmall(res.toString().slice(0, 16));
     }
+}
+
+function checkSmall(x) {
+    return x < .0000000000001 ? '0' : x;
 }
 
 clear();
